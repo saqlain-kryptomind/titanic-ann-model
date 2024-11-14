@@ -1,0 +1,4 @@
+Pclass,Sex,Age,SibSp,Parch,Fare,Embarked,Survived
+3,1,22,1,0,7.25,S,0
+1,0,38,1,0,71.2833,C,1
+2,0,26,0,0,7.925,Q,0

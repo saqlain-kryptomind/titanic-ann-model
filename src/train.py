@@ -1,6 +1,6 @@
 import numpy as np
 from preprocess import preprocess_data
-from model import initialize_parameters, forward_propagation, backpropagation
+from model import initialize_parameters, forward_propagation, backpropagation, binary_cross_entropy_loss
 
 # Load and preprocess data
 X, y = preprocess_data('data/titanic.csv')
@@ -23,7 +23,7 @@ for epoch in range(epochs):
     weights_input_hidden, weights_hidden_output, bias_hidden, bias_output = backpropagation(X_train, y_train, hidden_output, final_output, weights_input_hidden, weights_hidden_output, bias_hidden, bias_output)
 
     if epoch % 1000 == 0:
-        loss = np.mean(np.square(y_train - final_output))
+        loss = binary_cross_entropy_loss(y_train, final_output)
         print(f"Epoch {epoch}, Loss: {loss}")
         
 # Save the trained parameters

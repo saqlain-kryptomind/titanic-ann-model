@@ -6,6 +6,14 @@ def sigmoid(x):
 def sigmoid_derivative(x):
     return x * (1 - x)
 
+# Define Binary Cross-Entropy Loss function
+def binary_cross_entropy_loss(y_true, y_pred):
+    # avoid log(0)
+    y_pred = np.clip(y_pred, 1e-7, 1 - 1e-7)
+    # Calculate binary cross-entropy loss
+    loss = - np.mean(y_true * np.log(y_pred) + (1 - y_true) * np.log(1 - y_pred))
+    return loss
+
 # Initialize ANN parameters (weights and biases)
 def initialize_parameters(input_neurons, hidden_neurons, output_neurons):
     np.random.seed(42)
@@ -33,8 +41,7 @@ def backpropagation(X, y, hidden_output, final_output, weights_input_hidden, wei
     output_error = y - final_output
     output_delta = output_error * sigmoid_derivative(final_output)
 
-    # Fix the matrix multiplication here: output_delta has shape (n_samples, 1) and weights_hidden_output has shape (n_hidden_neurons, 1)
-    hidden_error = np.dot(output_delta, weights_hidden_output.T)  # Fix the alignment for multiplication
+    hidden_error = np.dot(output_delta, weights_hidden_output.T) 
     hidden_delta = hidden_error * sigmoid_derivative(hidden_output)
 
     weights_hidden_output += np.dot(hidden_output.T, output_delta) * learning_rate
